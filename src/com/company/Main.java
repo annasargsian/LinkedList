@@ -3,7 +3,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        mySinglyLinkedList linkedList = new mySinglyLinkedList();
+        SinglyLinkedList<Integer> linkedList = new SinglyLinkedList();
         linkedList.add(5);
         linkedList.add(6);
         linkedList.add(7);
@@ -16,7 +16,7 @@ public class Main {
         System.out.println(linkedList.get(0));
         System.out.println(linkedList.remove((Integer) 5));
 
-        myDoubleLinkedList doubleLinkedList = new myDoubleLinkedList();
+        DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
         doubleLinkedList.add(4);
         doubleLinkedList.add(5);
         doubleLinkedList.add(6);

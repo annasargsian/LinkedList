@@ -1,14 +1,14 @@
 package com.company;
 
-public class myDoubleLinkedList implements List {
-    Node first;
-    Node last;
-    int size;
+public class DoubleLinkedList<T> implements List<T> {
+    private Node<T> first;
+    private Node<T> last;
+    private int size;
 
     @Override
-    public Integer get(int index) {
-        Node current = first;
-        Integer item = null;
+    public T get(int index) {
+        Node<T> current = first;
+        T item = null;
         for (int i = 0; i < size; i++) {
             if (i == index) {
                 item = current.value;
@@ -19,8 +19,8 @@ public class myDoubleLinkedList implements List {
     }
 
     @Override
-    public void add(Integer number) {
-        Node node = new Node(number);
+    public void add(T item) {
+        Node node = new Node(item);
         if (first == null) {
             first = node;
             last = node;
@@ -35,22 +35,22 @@ public class myDoubleLinkedList implements List {
 
     @Override
     public void remove(int index) {
-        Integer result = get(index);
+        T result = get(index);
         remove(result);
     }
 
     @Override
-    public boolean remove(Integer number) {
-        Node node = new Node(number);
-        if (first.value.equals(number)) {
+    public boolean remove(T item) {
+        Node<T> node = new Node(item);
+        if (first.value.equals(item)) {
             first.previous = null;
             first = first.next;
             size--;
             return true;
         }
-        Node current = first;
+        Node<T> current = first;
         for (int i = 0; i < size() - 1; i++) {
-            if (current.next.value.equals(number)) {
+            if (current.next.value.equals(item)) {
                 if (i == size - 2) {
                     current.next = null;
                     last = current;
@@ -68,24 +68,15 @@ public class myDoubleLinkedList implements List {
 
     @Override
     public int size() {
-        Node current = first;
-        int counter = 0;
-        while (current != last) {
-            current = current.next;
-            counter++;
-        }
-        if (first != last) {
-            return counter + 1;
-        }
-        return counter;
+        return size;
     }
 
     @Override
-    public boolean contains(Integer number) {
-        Node current = first;
+    public boolean contains(T item) {
+        Node<T> current = first;
         boolean isContain = false;
         for (int i = 0; i < size; i++) {
-            if (current.value.equals(number)) {
+            if (current.value.equals(item)) {
                 isContain = true;
             }
             current = current.next;
@@ -108,12 +99,12 @@ public class myDoubleLinkedList implements List {
         return result.toString();
     }
 
-    class Node {
-        Integer value;
-        Node next;
-        Node previous;
+    class Node<T> {
+        private T value;
+        Node<T> next;
+        Node<T> previous;
 
-        Node(Integer value) {
+        Node(T value) {
             this.value = value;
         }
     }

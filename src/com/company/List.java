@@ -1,16 +1,16 @@
 package com.company;
 
-public interface List {
+public interface List<T> {
 
-    Integer get(int index);
+    T get(int index);
 
-    void add(Integer number);
+    void add(T item);
 
     void remove(int index);
 
-    boolean remove(Integer number);
+    boolean remove(T item);
 
     int size();
 
-    boolean contains(Integer number);
+    boolean contains(T item);
 }
