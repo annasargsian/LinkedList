@@ -1,6 +1,6 @@
 package com.company;
 
-public class DoubleLinkedList<T> implements List<T> {
+public class DoubleLinkedList<T> implements List<T>, Queue<T> {
     private Node<T> first;
     private Node<T> last;
     private int size;
@@ -82,6 +82,109 @@ public class DoubleLinkedList<T> implements List<T> {
             current = current.next;
         }
         return isContain;
+    }
+
+    @Override
+    public void addFirst(T item) {
+        Node node = new Node(item);
+        if (first == null) {
+            first = node;
+            last = node;
+            size++;
+            return;
+        }
+        first.previous = node;
+        node.next = first;
+        first = node;
+        size++;
+    }
+
+    @Override
+    public void addLast(T item) {
+        Node node = new Node(item);
+        if (last == null) {
+            first = node;
+            last = node;
+            size++;
+            return;
+        }
+        last.next = node;
+        node.previous = last;
+        last = node;
+        size++;
+    }
+
+    @Override
+    public void removeFirst() {
+        first = first.next;
+        first.previous = null;
+        size--;
+    }
+
+    @Override
+    public void removeLast() {
+        last = last.previous;
+        last.next = null;
+        size--;
+    }
+
+    @Override
+    public void push(T item) {
+        addFirst(item);
+    }
+
+    @Override
+    public void pop(T item) {
+        if (first.value.equals(item)) {
+            removeFirst();
+        }
+    }
+
+    @Override
+    public boolean offerFirst(T item) {
+        int count = size;
+        addFirst(item);
+        if (count + 1 == size) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean offerLast(T item) {
+        int count = size;
+        if(last.value.equals(item)) {
+            removeLast();
+            if (count - 1 == size) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public T poll() {
+        if (first == null) {
+            return null;
+        }
+        T tmp = (T) first;
+        removeFirst();
+        return tmp;
+    }
+
+    @Override
+    public T pollFirst() {
+        return poll();
+    }
+
+    @Override
+    public T pollLast() {
+        if (first == null) {
+            return null;
+        }
+        T tmp = (T) last;
+        removeLast();
+        return tmp;
     }
 
     @Override
