@@ -103,14 +103,29 @@ public class SinglyLinkedList<T> implements List<T> {
         return result.toString();
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new Helper();
+    }
+    private class  Helper implements Iterator<T>{
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
 
+        @Override
+        public T next() {
+            return null;
+        }
+    }
     class Node<T> {
         private T value;
         private Node<T> next;
-
+        
         Node(T value) {
             this.value = value;
         }
     }
+
 
 }

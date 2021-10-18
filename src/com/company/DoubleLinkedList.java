@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.NoSuchElementException;
+
 public class DoubleLinkedList<T> implements List<T>, Queue<T> {
     private Node<T> first;
     private Node<T> last;
@@ -82,6 +84,11 @@ public class DoubleLinkedList<T> implements List<T>, Queue<T> {
             current = current.next;
         }
         return isContain;
+    }
+
+    @Override
+    public List.ListIterator<T> iterator() {
+        return null;
     }
 
     @Override
@@ -201,6 +208,66 @@ public class DoubleLinkedList<T> implements List<T>, Queue<T> {
         result.append("]");
         return result.toString();
     }
+    private class ListIterator implements List.ListIterator<T> {
+        private Node<T> current = first;
+        private Node<T> tail = last;
+        private int cursor;
+
+        public ListIterator() {};
+
+        public ListIterator(int size) {
+            cursor = size();
+        }
+
+        public boolean hasNext() {
+            return cursor != size();
+        }
+
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T temp = current.value;
+            current = current.next;
+            cursor++;
+            return temp;
+        }
+
+
+        public boolean hasPrevious() {
+            return cursor > 0;
+        }
+
+
+        public T previous() {
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            T temp = tail.value;
+            tail = tail.previous;
+            cursor--;
+            return temp;
+        }
+    }
+
+    @Override
+    public Iterator<T> descendingIterator() {
+        return new DescendingIterator();
+    }
+
+    private class DescendingIterator implements Iterator<T> {
+        private List.ListIterator<T> itr = new ListIterator(size());
+
+        @Override
+        public boolean hasNext() {
+            return itr.hasPrevious();
+        }
+
+        @Override
+        public T next() {
+            return itr.previous();
+        }
+    }
 
     class Node<T> {
         private T value;
@@ -211,4 +278,5 @@ public class DoubleLinkedList<T> implements List<T>, Queue<T> {
             this.value = value;
         }
     }
+
 }

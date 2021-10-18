@@ -13,4 +13,24 @@ public interface List<T> {
     int size();
 
     boolean contains(T item);
+
+    ListIterator<T> iterator();
+
+    Iterator<T> descendingIterator();
+
+    interface ListIterator<T> {
+        boolean hasNext();
+
+        T next();
+
+        boolean hasPrevious();
+
+        T previous();
+    }
+
+    interface Iterator<T> {
+        boolean hasNext();
+
+        T next();
+    }
 }
